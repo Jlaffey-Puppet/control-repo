@@ -1,0 +1,86 @@
+config:
+  enable_pull_requests_from_forks: false
+pipelines:
+  master:
+    triggers:
+    - "COMMIT"
+    - "PULL_REQUEST"
+    stages:
+    - name: "Pipeline Stage 1"
+      steps:
+      - type: "JOB"
+        name: "control-repo-puppetfile-syntax-validate"
+        concurrent_compilations: 0
+        all_deployments: false
+      - type: "JOB"
+        name: "control-repo-template-syntax-validate"
+        concurrent_compilations: 0
+        all_deployments: false
+      - type: "JOB"
+        name: "control-repo-hiera-syntax-validate"
+        concurrent_compilations: 0
+        all_deployments: false
+      - type: "JOB"
+        name: "control-repo-manifest-validate"
+        concurrent_compilations: 0
+        all_deployments: false
+      auto_promote: "all_succeeded"
+    - name: "Impact Analysis"
+      steps:
+      - type: "IMPACT_ANALYSIS"
+        deployments:
+        - "Deployment to cd4pe_devweb on my-pe-master"
+        - "Deployment to cd4pe_testweb on my-pe-master"
+        - "Deployment to cd4pe_linux on my-pe-master"
+        concurrent_compilations: 10
+        all_deployments: false
+      auto_promote: "all_succeeded"
+    - name: "Deploy to Dev"
+      steps:
+      - type: "DEPLOYMENT"
+        name: "Deployment to cd4pe_devweb on my-pe-master"
+        policy:
+          name: "cd4pe_deployments::direct"
+        parameters:
+          noop: false
+        timeout: 3600000
+        concurrent_compilations: 0
+        all_deployments: false
+        pe_server: "my-pe-master"
+        target:
+          type: "NODE_GROUP"
+          node_group_id: "82a11238-18dd-487b-996f-5db35901d98a"
+      auto_promote: "all_succeeded"
+    - name: "To Test"
+      steps:
+      - type: "DEPLOYMENT"
+        name: "Deployment to cd4pe_testweb on my-pe-master"
+        policy:
+          name: "cd4pe_deployments::direct"
+        parameters:
+          noop: false
+        timeout: 3600000
+        concurrent_compilations: 0
+        all_deployments: false
+        pe_server: "my-pe-master"
+        target:
+          type: "NODE_GROUP"
+          node_group_id: "558dc73e-46b3-43fe-a4f6-db41e267f9fd"
+      auto_promote: "all_succeeded"
+    - name: "Deploy to Linux"
+      steps:
+      - type: "DEPLOYMENT"
+        name: "Deployment to cd4pe_linux on my-pe-master"
+        policy:
+          name: "cd4pe_deployments::direct"
+        parameters:
+          noop: false
+        timeout: 3600000
+        concurrent_compilations: 0
+        all_deployments: false
+        pe_server: "my-pe-master"
+        target:
+          type: "NODE_GROUP"
+          node_group_id: "51fe28d3-d0ce-4315-96c3-81296c8f7260"
+      auto_promote: false
+spec_version: "V1"
