@@ -1,5 +1,5 @@
 forge 'https://forge.puppet.com'
-
+# This is a pointless update
 # Modules from the Puppet Forge
 # Versions should be updated to be the latest at the time you start
 #mod 'puppetlabs/inifile',     '2.2.1'
