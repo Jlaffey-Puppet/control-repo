@@ -1,6 +1,7 @@
 forge 'https://forge.puppet.com'
 # This is a pointless update
 # Modules from the Puppet Forge
+#this is a pointless update to trigger a webhook
 # Versions should be updated to be the latest at the time you start
 #mod 'puppetlabs/inifile',     '2.2.1'
 #mod 'puppetlabs/stdlib',      '4.25.1'
