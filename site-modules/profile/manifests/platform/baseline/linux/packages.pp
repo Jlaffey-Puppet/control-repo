@@ -1,6 +1,6 @@
 class profile::platform::baseline::linux::packages {
 
-  $pkgs = ['unzip','wget']
+  $pkgs = ['unzip','wget', 'vim']
 
   ensure_packages($pkgs, {ensure => installed})
 
