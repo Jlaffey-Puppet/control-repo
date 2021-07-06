@@ -9,6 +9,7 @@ mod 'puppetlabs-exec',               '1.0.0'
 mod 'puppetlabs-chocolatey',         '6.0.1'
 mod 'puppetlabs-stdlib',             '7.0.1'
 mod 'puppet-epel',                   '3.0.1'
+mod 'puppet-puppetboard',            '7.0.2'
 
 #modules for Apache
 mod 'puppetlabs-apache', '6.0.1'
